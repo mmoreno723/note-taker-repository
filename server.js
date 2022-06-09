@@ -1,10 +1,22 @@
 const express = require("express");
-const app = express();
+const path = require("path");
+const api = require("./db/db.json");
+
 const PORT = process.env.PORT || 3001;
 
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(express.static("public/index.html"));
+// app.use(express.static("public/notes.html"));
+
 app.get("/", (req, res) => {
-  res.send("Hello world");
+  res.sendFile(path.join(__dirname, "/public/index.html"));
 });
+
+app.get("/");
 
 app.listen(PORT, () => {
   console.log(`App listening on PORT http://localhost:${PORT}`);
