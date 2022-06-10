@@ -1,8 +1,9 @@
 const express = require("express");
+const notes = require("express").Router();
 const fs = require("fs");
+const { v4: uuidv4 } = require("uuid");
 const path = require("path");
 const database = require("./db/db.json");
-const notes = require("express").Router();
 const { readAndAppend, readFromFile } = require("./helpers/fsUtils");
 
 // set up the app and port
@@ -13,8 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static("public/index.html"));
-app.use(express.static("public/notes.html"));
+app.use(express.static("public"));
 
 // routes
 app.get("/notes", (req, res) => {
@@ -40,8 +40,8 @@ app.post("/api/notes", (req, res) => {
   } else {
     res.status(400).json("Request body is missing");
   }
-  console.log(req.body);
-
+  console.log(response);
+  //   // new note
   //   const { title, text } = req.body;
 
   //   if (title && text) {
@@ -51,7 +51,7 @@ app.post("/api/notes", (req, res) => {
   //     };
 
   //     const response = {
-  //       status: "Success, note added",
+  //       status: "Success, new note added",
   //       body: newNote,
   //     };
 
@@ -61,6 +61,29 @@ app.post("/api/notes", (req, res) => {
   //     res.status(500).json("Error in adding note");
   //   }
 });
+
+// notes.get("/api/notes", (req, res) => {
+//   console.log(database);
+//   fs.readFile(database).then((data) => res.json(JSON.parse(data)));
+// });
+
+// notes.post("/api/notes", (req, res) => {
+//   console.log(req.body);
+
+//   const { title, text } = req.body;
+
+//   if (req.body) {
+//     const newNote = {
+//       title,
+//       text,
+//     };
+
+//     readAndAppend(newNote, "./db/db.json");
+//     res.json(`Note added successfully!`);
+//   } else {
+//     res.error("Error in posting note");
+//   }
+// });
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "/public/index.html"));
