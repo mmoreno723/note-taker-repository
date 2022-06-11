@@ -27,6 +27,9 @@ You may use this to write and save notes that will be dynamically updated on the
 Thank you to third party websites like MDN and W3 for providing me with lots of information to complete this assignment.
 
 ## Screenshots
+<img width="1402" alt="Screen Shot 2022-06-10 at 11 44 47 PM" src="https://user-images.githubusercontent.com/102837154/173171374-91bbfa48-25b2-4830-ac81-94a28e2cae61.png">
+
+<img width="1410" alt="Screen Shot 2022-06-10 at 11 45 31 PM" src="https://user-images.githubusercontent.com/102837154/173171380-16a9258d-521d-4158-a9b3-2758f33d04bc.png">
 
 ## Link
 
