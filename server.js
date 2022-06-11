@@ -4,7 +4,11 @@ const fs = require("fs");
 const { v4: uuidv4 } = require("uuid");
 const path = require("path");
 const database = require("./db/db.json");
-const { readAndAppend, readFromFile } = require("./helpers/fsUtils");
+const {
+  readAndAppend,
+  readFromFile,
+  writeToFile,
+} = require("./helpers/fsUtils");
 
 // set up the app and port
 const PORT = process.env.PORT || 3001;
@@ -17,6 +21,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // routes
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "/public/index.html"));
+});
+
 app.get("/notes", (req, res) => {
   res.sendFile(path.join(__dirname, "/public/notes.html"));
 });
@@ -29,63 +37,64 @@ app.get("/api/notes", (req, res) => {
 app.post("/api/notes", (req, res) => {
   console.log(`${req.method} request recieved to add a note`);
 
-  let response;
+  // new note
+  const { title, text } = req.body;
 
-  if (req.body) {
-    response = {
-      status: "Success",
-      data: req.body,
+  if (title && text) {
+    const newNote = {
+      title,
+      text,
+      note_id: uuidv4(),
     };
+
+    readAndAppend(newNote, "./db/db.json");
+
+    const response = {
+      status: "Success, new note added",
+      body: newNote,
+    };
+
+    // writeToFile("./public/notes.html", newNote.title);
+
+    console.log(response);
     res.status(201).json(response);
   } else {
-    res.status(400).json("Request body is missing");
+    res.status(500).json("Error in adding note");
   }
-  console.log(response);
-  //   // new note
-  //   const { title, text } = req.body;
-
-  //   if (title && text) {
-  //     const newNote = {
-  //       title,
-  //       text,
-  //     };
-
-  //     const response = {
-  //       status: "Success, new note added",
-  //       body: newNote,
-  //     };
-
-  //     console.log(response);
-  //     res.status(201).json(response);
-  //   } else {
-  //     res.status(500).json("Error in adding note");
-  //   }
 });
 
-// notes.get("/api/notes", (req, res) => {
-//   console.log(database);
-//   fs.readFile(database).then((data) => res.json(JSON.parse(data)));
+// app.delete("/api/notes/:id", (req, res) => {
+//   const id = req.params.note_id;
+//   console.log(id);
+//   fs.readFile("./db/db.json", (err, notes) => {
+//     if (err) throw err;
+//     let notesArray = JSON.parse(notes);
+//     console.log(notesArray[0].id);
+
+//     for (let i = 0; i < notesArray.length; i++) {
+//       if (id === notesArray[i].id) {
+//         notesArray.splice(i, 1);
+//       }
+//     }
+
+//     fs.writeFile(
+//       "./db/db.json",
+//       JSON.stringify(notesArray, null, 2),
+//       "utf8",
+//       (err) => {
+//         if (err) return console.log(err);
+//         res.json(`Note: ${id} has been deleted`);
+//       }
+//     );
+//   });
 // });
 
-// notes.post("/api/notes", (req, res) => {
-//   console.log(req.body);
+app.get("/api/notes/:id", (req, res) => {
+  const index = req.params.note_id;
+  res.json(notes[index]);
+});
 
-//   const { title, text } = req.body;
-
-//   if (req.body) {
-//     const newNote = {
-//       title,
-//       text,
-//     };
-
-//     readAndAppend(newNote, "./db/db.json");
-//     res.json(`Note added successfully!`);
-//   } else {
-//     res.error("Error in posting note");
-//   }
-// });
-
-app.get("/", (req, res) => {
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "/public/index.html"));
 });
 
