@@ -1,14 +1,10 @@
 const express = require("express");
-const notes = require("express").Router();
+// const notes = require("express").Router();
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid");
 const path = require("path");
 const database = require("./db/db.json");
-const {
-  readAndAppend,
-  readFromFile,
-  writeToFile,
-} = require("./helpers/fsUtils");
+const { readAndAppend, readFromFile } = require("./helpers/fsUtils");
 
 // set up the app and port
 const PORT = process.env.PORT || 3001;
@@ -29,11 +25,6 @@ app.get("/notes", (req, res) => {
   res.sendFile(path.join(__dirname, "/public/notes.html"));
 });
 
-app.get("/api/notes", (req, res) => {
-  console.log(`${req.method} request recieved to get a note`);
-
-  return res.json(database);
-});
 app.post("/api/notes", (req, res) => {
   console.log(`${req.method} request recieved to add a note`);
 
@@ -44,7 +35,7 @@ app.post("/api/notes", (req, res) => {
     const newNote = {
       title,
       text,
-      note_id: uuidv4(),
+      id: uuidv4(),
     };
 
     readAndAppend(newNote, "./db/db.json");
@@ -57,14 +48,14 @@ app.post("/api/notes", (req, res) => {
     // writeToFile("./public/notes.html", newNote.title);
 
     console.log(response);
-    res.status(201).json(response);
+    res.json(response);
   } else {
-    res.status(500).json("Error in adding note");
+    res.json("Error in adding note");
   }
 });
 
 // app.delete("/api/notes/:id", (req, res) => {
-//   const id = req.params.note_id;
+//   const id = req.params.id;
 //   console.log(id);
 //   fs.readFile("./db/db.json", (err, notes) => {
 //     if (err) throw err;
@@ -89,9 +80,14 @@ app.post("/api/notes", (req, res) => {
 //   });
 // });
 
-app.get("/api/notes/:id", (req, res) => {
-  const index = req.params.note_id;
-  res.json(notes[index]);
+// app.get("/api/notes/:id", (req, res) => {
+//   const index = req.params.id;
+//   res.json(notes[index]);
+// });
+app.get("/api/notes", (req, res) => {
+  console.log(`${req.method} request recieved to get a note`);
+
+  return res.json(database);
 });
 
 app.get("*", (req, res) => {

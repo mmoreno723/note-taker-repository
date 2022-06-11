@@ -1,7 +1,27 @@
 [
-  {
-    "title": "get coffee",
-    "text": "go to the coffee shop",
-    "note_id": "11454315-f817-4553-9e63-3fa8ccfce6e2"
-  }
+    {
+        "title": "make dinner",
+        "text": "prep, make, eat, clean",
+        "note_id": "1b00e0c2-ef0f-4419-82ca-c9966eb94365"
+    },
+    {
+        "title": "make breakfast",
+        "text": "eggs and french toast",
+        "id": "ed9829f6-0e39-4f21-8894-38146a692677"
+    },
+    {
+        "title": "get dry cleaning",
+        "text": "go to dry cleaners",
+        "id": "fa265eb3-9c10-4390-8416-7d93709e2856"
+    },
+    {
+        "title": "hang clothes",
+        "text": "get clothes out of washer and hang them",
+        "id": "9788cf12-6bde-487c-97e4-4b0925532917"
+    },
+    {
+        "title": "Get a haircut",
+        "text": "Call the barbershop to make an appointment",
+        "id": "34e842e3-bde1-4d08-950a-4fa57899d45f"
+    }
 ]
