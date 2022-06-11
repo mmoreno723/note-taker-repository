@@ -14,11 +14,11 @@ To open this environment, here are the steps needed:
 5. Once cloned, check the status of the cloning by navigating to the directory where the repo is located and typing "git status"
 6. If green, then the repo has been cloned and you can then drag the folder from your computer into vscode to run the environment
 
-Alternative Steps:
+Alternative Steps through Heroku:
 
 1. Follow the link to my Github repository link
 2. Once there, scroll down to "Environments" on the right hand side of the screen
-3. Click the Heroku link to open the deployed application
+3. Click the "morning-lowlands-34509" link to deploy the application
 
 ## Usage 
 You may use this to write and save notes that will be dynamically updated on the webpage.
