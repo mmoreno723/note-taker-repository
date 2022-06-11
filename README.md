@@ -32,6 +32,7 @@ Thank you to third party websites like MDN and W3 for providing me with lots of 
 <img width="1410" alt="Screen Shot 2022-06-10 at 11 45 31 PM" src="https://user-images.githubusercontent.com/102837154/173171380-16a9258d-521d-4158-a9b3-2758f33d04bc.png">
 
 ## Link
+https://mmoreno723.github.io/note-taker-repository/
 
 ## License
 Copyright (c) 2022 Michael Moreno
